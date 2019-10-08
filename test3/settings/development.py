@@ -1,12 +1,15 @@
 from test3.settings.base import *
+import os
 
-SECRET_KEY = 'j!=e1)ekj=5l*#pn)_7fp)5y%re@81b08a^8s3_#jrs0jp7*ci'
+
+
+SECRET_KEY = os.environ["TEST3_SECRET_KEY"]
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ["TEST3_ALLOWED_HOST_1"]]
 
 # Application definition
 INSTALLED_APPS = [
@@ -20,9 +23,14 @@ INSTALLED_APPS = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ["TEST3_DB_NAME"],
+        'USER': os.environ["TEST3_DB_USER"],
+        'PASSWORD': os.environ["TEST3_DB_PASSWORD"],
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
